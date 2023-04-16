@@ -87,7 +87,6 @@ function Auth() {
     return (
         <div
             style={{
-                backgroundColor: " #ff4d4d",
                 height: "100vh",
                 display: "flex",
                 justifyContent: "center",
@@ -104,8 +103,10 @@ function Auth() {
                     <div className="form-icon">
                         <i className="fa fa-user-circle"></i>
                         <h6 className="title text-white">GB BAKESHOP</h6>
+                        <p><b><u>ATTENDANCE</u></b></p>
                     </div>
                     <div className="form-horizontal">
+                    <h5 className="title text-black">LOGIN FORM</h5>
                     <Form
                                         name="basic"
                                         initialValues={{ remember: true }}
@@ -144,7 +145,7 @@ function Auth() {
                                         >
                                             <Input.Password />
                                         </Form.Item>
-
+                                        <br />  <br />
                                         <Form.Item>
                                             <Button
                                                 loading={loading}
@@ -154,7 +155,7 @@ function Auth() {
                                                 danger
                                                 htmlType="submit"
                                             >
-                                                Submit
+                                                LOGIN
                                             </Button>
                                         </Form.Item>
                                     </Form>

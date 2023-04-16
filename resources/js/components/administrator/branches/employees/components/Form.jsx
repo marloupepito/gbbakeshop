@@ -252,7 +252,7 @@ const EmployeesForm = () => {
           },
         ]}
       >
-        <Select className="mb-5" placeholder="select Position">
+        <Select>
         <Option value="Supervisor">Supervisor</Option>
           <Option value="Chief Baker">Chief Baker</Option>
           <Option value="Baker">Baker</Option>
@@ -263,7 +263,7 @@ const EmployeesForm = () => {
         </Select>
       </Form.Item>
 
- 
+ <br /> <br />
 
      
       <Form.Item {...tailFormItemLayout}>

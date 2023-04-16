@@ -11,8 +11,10 @@
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        <script src="{{ asset('js/app.js') }}" defer></script>
-        
+       <!--  <script src="{{ asset('js/app.js') }}" defer></script> -->
+        @viteReactRefresh
+        @vite('resources/js/app.js')
+        @vite('resources/css/app.css')
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
         <!-- Styles -->
         <!-- <link rel="manifest" href="manifest.json" /> -->
@@ -57,29 +59,16 @@
             .ant-form-item.css-dev-only-do-not-override-1me4733{
               margin:3px !important;
             }
-
+            .ant-form-item.css-dev-only-do-not-override-htwhyh{
+              margin:3px !important;
+            }
 
         /* body {
             background: #007bff;
             background: linear-gradient(to right, gray,white);
           } */
 
-          .btn-login {
-            font-size: 0.9rem;
-            letter-spacing: 0.05rem;
-            padding: 0.75rem 1rem;
-          }
-
-          .btn-google {
-            color: white !important;
-            background-color: #ea4335;
-          }
-
-          .btn-facebook {
-            color: white !important;
-            background-color: #3b5998;
-          }
-
+    
 
       </style>
     </head>
