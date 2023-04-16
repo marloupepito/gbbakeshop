@@ -137,7 +137,7 @@ small{
 		align-items: center;
 	}
 }
-@media(max-width: 450px){
+@media(max-width: 300px){
 	.fab{
 		width: 100%;
 		height: 100%;
