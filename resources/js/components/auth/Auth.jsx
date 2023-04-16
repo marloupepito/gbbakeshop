@@ -44,7 +44,7 @@ function Auth() {
                 password: values.password,
             })
             .then((res) => {
-                console.log(res.data.user)
+                console.log(res.data.user);
                 localStorage.setItem("user", JSON.stringify(res.data.user));
                 if (
                     res.data.status === "success" &&
@@ -92,22 +92,38 @@ function Auth() {
                 justifyContent: "center",
                 alignItems: "center",
             }}
-            
         >
             <Skeleton loading={loading2}>
-               
-    <div className="container offset-md-3 ">
-        <div className="row">
-            <div className="col-lg-7 col-md-offset-2 col-md-8">
-                <div className="form-container">
-                    <div className="form-icon">
-                        <i className="fa fa-user-circle"></i>
-                        <h6 className="title text-white">GB BAKESHOP</h6>
-                        <p><b><u>ATTENDANCE</u></b></p>
-                    </div>
-                    <div className="form-horizontal">
-                    <h5 className="title text-black">LOGIN FORM</h5>
-                    <Form
+                <div className="container">
+                    <div className="row d-flex justify-content-center mt-5">
+                        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
+                            <div className="card py-3 px-2">
+                                <p className="text-center mb-3 mt-2">
+                                    <h3><b>GB BAKESHOP</b></h3>
+                                </p>
+                                <div className="row mx-auto ">
+                                    <div className="col-4">
+                                        <i className="fab fa-twitter"></i>
+                                    </div>
+                                    <div className="col-4">
+                                        <i className="fab fa-facebook"></i>
+                                    </div>
+                                    <div className="col-4">
+                                        <i className="fab fa-google"></i>
+                                    </div>
+                                </div>
+                                <div className="division mb-5">
+                                    <div className="row">
+                                        <div className="col-3">
+                                            <div className="line l"></div>
+                                        </div>
+                                        <div className="col-3">
+                                            <div className="line r"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="myform">
+                                    <Form
                                         name="basic"
                                         initialValues={{ remember: true }}
                                         onFinish={onFinish}
@@ -131,7 +147,6 @@ function Auth() {
                                         >
                                             <Input />
                                         </Form.Item>
-
                                         <Form.Item
                                             label="Password"
                                             name="password"
@@ -145,25 +160,34 @@ function Auth() {
                                         >
                                             <Input.Password />
                                         </Form.Item>
-                                        <br />  <br />
-                                        <Form.Item>
-                                            <Button
-                                                loading={loading}
-                                                className="mt-4"
-                                                block
-                                                type="primary"
-                                                danger
-                                                htmlType="submit"
-                                            >
-                                                LOGIN
-                                            </Button>
-                                        </Form.Item>
-                                    </Form>
+                                        <br /> <br />
+                                        <div className="row">
+                                            <div className="col-md-6 col-12">
+                                                {/* <div className="form-group form-check">
+    							<input type="checkbox" className="form-check-input" id="exampleCheck1" />
+    							<label className="form-check-label" for="exampleCheck1">Rester connecte</label>
+  							</div> */}
+                                            </div>
+                                        </div>
+                                        <div className="form-group mt-3">
+                                            <Form.Item>
+                                                <Button
+                                                    loading={loading}
+                                                    block
+                                                    type="primary"
+                                                    danger
+                                                    htmlType="submit"
+                                                >
+                                                    LOGIN
+                                                </Button>
+                                            </Form.Item>
+                                        </div>
+                                    </Form><br />
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </div>
             </Skeleton>
         </div>
     );
