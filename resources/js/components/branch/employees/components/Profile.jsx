@@ -5,7 +5,7 @@ function Profile() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        axios.get('/user')
+        axios.get('/api/user')
         .then(res=>{
             console.log(res.data)
             setData(res.data)

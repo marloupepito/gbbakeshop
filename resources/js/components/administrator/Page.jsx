@@ -8,7 +8,7 @@ const AdministratorPage = () => {
     const navigate = useNavigate();
     useEffect(() => {
         axios
-            .get("/user")
+            .get("/api/user")
             .then((res) => {
                 setSession(res.data.branch_name);
                 setLoading(false);

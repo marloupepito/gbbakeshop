@@ -10,31 +10,30 @@ function Auth() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // axios
-        //     .get("/user")
-        //     .then((res) => {
-        //         if (window.location.pathname === "/") {
-        //             if (res.data.position === "admin") {
-        //                 navigate("/administrator/dashboard");
-        //                 setLoading2(false);
-        //             } else {
-        //                 navigate(
-        //                     "/branch/" +
-        //                         localStorage
-        //                             .getItem("branch")
-        //                             .replace(/ /g, "_") +
-        //                         "/ingredients"
-        //                 );
-        //             }
-        //         }
-        //     })
-        //     .catch((err) => {
-        //         setLoading2(false);
-        //     });
+        axios
+            .get("/api/user")
+            .then((res) => {
+                if (window.location.pathname === "/") {
+                    if (res.data.position === "admin") {
+                        navigate("/administrator/dashboard");
+                        setLoading2(false);
+                    } else {
+                        navigate(
+                            "/branch/" +
+                                localStorage
+                                    .getItem("branch")
+                                    .replace(/ /g, "_") +
+                                "/ingredients"
+                        );
+                    }
+                }
+            })
+            .catch((err) => {
+                setLoading2(false);
+            });
     }, []);
 
     const onFinish = (values) => {
-       
         setError(false);
         setLoading(true);
         // history("/administrator");
@@ -97,19 +96,17 @@ function Auth() {
             
         >
             <Skeleton loading={loading2}>
-                <div className="container offset-md-3" >
-                    <div className="card col-md-8">
-                        <div className="row g-0">
-                            <div className="col-md-6">
-                                <div className="h-100  justify-content-center align-items-center">
-                                    <img
-                                        src="/images/logo.png"
-                                        style={{ borderRadius: "10px" }}
-                                        width="100%"
-                                        className="col-md-10 offset-md-1 mt-3"
-                                    />
-                                    <Form
-                                        className="col-md-10 offset-md-1"
+               
+    <div className="container offset-md-3 ">
+        <div className="row">
+            <div className="col-lg-7 col-md-offset-2 col-md-8">
+                <div className="form-container">
+                    <div className="form-icon">
+                        <i className="fa fa-user-circle"></i>
+                        <h6 className="title text-white">GB BAKESHOP</h6>
+                    </div>
+                    <div className="form-horizontal">
+                    <Form
                                         name="basic"
                                         initialValues={{ remember: true }}
                                         onFinish={onFinish}
@@ -161,39 +158,11 @@ function Auth() {
                                             </Button>
                                         </Form.Item>
                                     </Form>
-                                </div>
-                            </div>
-                            <div className="col-md-6">
-                                <div className="right-side-content">
-                                    <div className="content d-flex flex-column">
-                                        <h6>Explore you activity</h6>
-                                        <span>
-                                            sed do eiusmod tempor incididunt ut
-                                            labore et dolore magna aliqua
-                                        </span>
-                                    </div>
-                                    <div className="right-side">
-                                        <span></span> <span></span>
-                                        <span></span> <span></span>
-                                        <span>
-                                            <img src="/images/baker1.png" />
-                                        </span>
-                                        <span></span> <span></span>
-                                        <span></span>
-                                        <span>
-                                            <img src="/images/baker2.jpg" />
-                                        </span>
-                                        <span></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="parallelogram">
-                        <span></span>
-                        <span></span> <span></span>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
             </Skeleton>
         </div>
     );
