@@ -3,16 +3,17 @@ import {  Col, Row,Skeleton  } from 'antd';
 import IngredientsModal from './components/Modal';
 import IngredientsAutocomplete from './components/Autocomplete';
 import { BranchNameParams } from '../../../routes/Params';
-
+import { SearchBranchId } from "../../../routes/Search";
 
 function IngredientsLayout() {
+   const branch_id = SearchBranchId().props.children;
    const [branches,setBranches] = useState([])
    const [loading,setLoading] = useState(true)
    const branchName = BranchNameParams().props.children.replace(/_/g,' ')
 
       useEffect(() => {
          axios.post('/get_branch_ingredients',{
-            branchName:branchName
+            id:branch_id
          })
          .then(res=>{
             setBranches(res.data.status)
