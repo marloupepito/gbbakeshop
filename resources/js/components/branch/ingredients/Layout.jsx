@@ -12,7 +12,7 @@ function IngredientsLayout() {
 
       useEffect(() => {
          axios.post('/get_branch_ingredients',{
-            branchName:branchName
+            id:localStorage.getItem("branchid")
          })
          .then(res=>{
             setBranches(res.data.status)

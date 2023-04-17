@@ -14,7 +14,6 @@ export default function IngredientsCard(props) {
  const branchName = BranchNameParams().props.children.replace(/_/g,' ')
 
 const confirm = (e) => {
-  console.log(e);
    axios.post('/delete_branch_ingredients',{
     id:e
   })

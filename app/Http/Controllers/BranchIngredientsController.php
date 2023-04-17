@@ -15,8 +15,7 @@ class BranchIngredientsController extends Controller
         BranchIngredients::where('id','=',$request->id)->delete();
     }
     public function get_branch_ingredients(Request $request){
-        $branch =Branches::where('branch_name','=',$request->branchName)->first();
-        $ingredients = BranchIngredients::where('branch_id','=',$branch->id)->orderBy('ingredients_quantity', 'ASC')->get();
+        $ingredients = BranchIngredients::where('branch_id','=',$request->id)->orderBy('ingredients_quantity', 'ASC')->get();
          return response()->json([
              'status' => $ingredients
          ]);
