@@ -60,6 +60,7 @@ function Auth() {
                     localStorage.setItem("branchid", res.data.user.branch_id);
                     localStorage.setItem("id", res.data.branch.id);
                     setLoading(false);
+                    console.log(res.data.branch.branch_name)
                 } else if (
                     res.data.status === "success" &&
                     res.data.user.position === "admin"
