@@ -7,7 +7,7 @@ function BranchPage() {
     const [loading,setLoading] = useState(true)
       const navigate = useNavigate();
       useEffect(() => {
-          axios.get('/api/user')
+          axios.get('/user')
           .then(res=>{
               setSession(res.data.branch_name)
               setLoading(false)

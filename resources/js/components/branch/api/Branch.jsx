@@ -1,6 +1,6 @@
 import { useState,useEffect,useReducer } from "react";
 import axios from 'axios'
-
+import {SearchBranchId} from '../../routes/Search';
 export function GetAllBranch() {
     const [branches,setBranches] = useState([])
 
@@ -20,11 +20,11 @@ export function GetAllBranch() {
 export function Get_all_production() {
     const [branches,setBranches] = useState([])
     const id = window.location.search.substring(1)
-    
+    const branchid = SearchBranchId().props.children
     
     useEffect(() => {
         axios.post('/get_all_production',{
-            id:id
+            id:branchid
         })
         .then(res=>{
             setBranches(res.data.status)
@@ -51,7 +51,7 @@ export function get_branch_ingredients() {
 
     useEffect(() => {
         axios.post('/get_branch_ingredients',{
-           branchName:window.location.pathname.split('/')[2].replace(/_/g,' ')
+            id:branchid
         })
         .then(res=>{
             setBranches(res.data.status)

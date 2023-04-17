@@ -49,7 +49,7 @@ const branchName = BranchNameParams().props.children.replace(/_/g,' ')
 
   useEffect(() => {
     axios.post('/get_branch_ingredients',{
-       branchName:branchName
+      id:branchid
     })
     .then(res=>{
       setIngredientList(res.data.status.map(res=>({value:res.ingredients_name})))

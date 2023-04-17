@@ -11,7 +11,7 @@ function Auth() {
 
     useEffect(() => {
         axios
-            .get("/api/user")
+            .get("/user")
             .then((res) => {
                 if (window.location.pathname === "/") {
                     if (res.data.position === "admin") {
