@@ -172,7 +172,7 @@ function ProductionRecords() {
                                                     <tr>
                                                         <td
                                                             className="p-0"
-                                                            colspan="2"
+                                                            colSpan="2"
                                                         >
                                                             <b>
                                                                 {" "}
