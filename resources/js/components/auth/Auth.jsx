@@ -50,11 +50,11 @@ function Auth() {
                     res.data.status === "success" &&
                     res.data.user.position !== "admin"
                 ) {
-                    // navigate(
-                    //     "/branch/" +
-                    //         res.data.branch.branch_name.replace(/ /g, "_") +
-                    //         "/ingredients"
-                    // );
+                    navigate(
+                        "/branch/" +
+                            res.data.branch.branch_name.replace(/ /g, "_") +
+                            "/ingredients"
+                    );
                     localStorage.setItem("position", res.data.user.position);
                     localStorage.setItem("branch", res.data.branch.branch_name);
                     localStorage.setItem("branchid", res.data.user.branch_id);
