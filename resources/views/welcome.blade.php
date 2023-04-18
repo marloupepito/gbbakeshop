@@ -14,6 +14,9 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        @viteReactRefresh
+        @vite('resources/js/app.js')
+        @vite('resources/css/app.css')
         <!-- Styles -->
         <!-- <link rel="manifest" href="manifest.json" /> -->
         <!-- <meta http-equiv="X-UA-Compatible" content="ie=edge" />

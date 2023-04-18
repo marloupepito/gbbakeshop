@@ -211,7 +211,7 @@ useEffect(() => {
         </table>
         } title="Remark Charges">
             <Tag color='volcano' key={key}>
-             {charge}
+            {charge === null?'0':charge}
            </Tag>
       </Popover>
      ),

@@ -18,7 +18,7 @@ class InventoryProductionController extends Controller
   public function goto_bread_report(Request $request){
 
     $record = Records::where('key', $request->id)->first();
-
+    $record2 = Records::where([['branch_id','=',$request->branchid],['bread_id','=',$record->bread_id],['status','=','breads']])->first();
     // $alltotal = $request->production;
     // $charge = $request->charge;
     $remaining = $request->production + $record->beginning;
@@ -33,16 +33,29 @@ class InventoryProductionController extends Controller
         'date' =>$request->date,
       ]);
     }
-
-    Records::where('key', $request->id)->update([
-      'remark2' =>$request->remarks,
-      'production' =>$request->production,
-      'charge' =>$request->charge,
-      'overs' =>$request->overs,
-      'status' =>'breads',
-      'assigned1' =>$request->assigned,
-      'total' =>$record->remaining+$remaining,
-    ]);
+    if($record2 === null){
+      Records::where('key', $request->id)->update([
+        'remark2' =>$request->remarks,
+        'production' =>$request->production,
+        'charge' =>$request->charge,
+        'overs' =>$request->overs,
+        'status' =>'breads',
+        'assigned1' =>$request->assigned,
+        'total' =>$record->remaining+$remaining,
+      ]);
+    }else{
+      
+      Records::where('key', $record2->key)->update([
+        'production' =>$record2->production + $request->production,
+        'charge' =>$record2->charge + $request->charge,
+        'overs' =>$record2->overs + $request->overs,
+        'status' =>'breads',
+        'assigned1' =>$request->assigned,
+        'total' =>$record2->total + $record->remaining+$remaining,
+      ]);
+      Records::where('key', $request->id)->delete();
+    }
+  
 
   }
   public function add_bread_list(Request $request){
@@ -53,28 +66,24 @@ class InventoryProductionController extends Controller
         $actualTarget=$request->actualTarget;
 
 
-          for ($i=0; $i < count($request->data); $i++) { 
-              $branchIngredientId = $request->data[$i]['branch_ingredients_id'];
-        
-              $remaining = BranchIngredients::where('id',$branchIngredientId)->first();
-              // $equal = $remaining->ingredients_quantity - $request->data[$i]['quantity'];
-              //res.bind === 'Grams'?res.quantity-(parseInt(res.quantity) / 1000):res.ingredients_quantity-res.quantity
-              $equal =$request->data[$i]['bind'] === 'Grams'?
-              $request->data[$i]['ingredients_quantity']-(($request->data[$i]['quantity'] / 1000) * $request->quantity):
-              $request->data[$i]['ingredients_quantity']-($request->data[$i]['quantity'] * $request->quantity);
+        for ($i=0; $i < count($request->data); $i++) { 
+            $branchIngredientId = $request->data[$i]['branch_ingredients_id'];
+      
+            $remaining = BranchIngredients::where('id',$branchIngredientId)->first();
+            // $equal = $remaining->ingredients_quantity - $request->data[$i]['quantity'];
+            //res.bind === 'Grams'?res.quantity-(parseInt(res.quantity) / 1000):res.ingredients_quantity-res.quantity
+            $equal =$request->data[$i]['bind'] === 'Grams'?
+            $request->data[$i]['ingredients_quantity']-(($request->data[$i]['quantity'] / 1000) * $request->quantity):
+            $request->data[$i]['ingredients_quantity']-($request->data[$i]['quantity'] * $request->quantity);
 
-              BranchIngredients::where('id',$branchIngredientId)
-              ->update(['ingredients_quantity' => $equal]);
-          }
+            BranchIngredients::where('id',$branchIngredientId)
+            ->update(['ingredients_quantity' => $equal]);
+        }
 
-     $date= date("F d, Y A");
-
-        $bread=BranchBread::where([['branch_id','=',$request->branchid],['key','=',$request->data[0]['branch_bread_id']]])->first();
-
-        $beginning = Records::where([['date','=',$date],['branch_id','=',$request->branchid],['bread_id','=',$request->data[0]['branch_bread_id']]])->orderBy('created_at','DESC')->first();
-
-
-        $checkExist =  Records::where([['remember_token','=',null],['branch_id','=',$request->branchid],['bread_id','=',$request->data[0]['branch_bread_id']]])->orderBy('created_at','DESC')->first();
+       $date= date("F d, Y A");
+       $bread=BranchBread::where([['branch_id','=',$request->branchid],['key','=',$request->data[0]['branch_bread_id']]])->first();
+       $beginning = Records::where([['status','=',null],['date','=',$date],['branch_id','=',$request->branchid],['bread_id','=',$request->data[0]['branch_bread_id']]])->orderBy('created_at','DESC')->first();
+       $checkExist =  Records::where([['status','=',null],['remember_token','=',null],['branch_id','=',$request->branchid],['bread_id','=',$request->data[0]['branch_bread_id']]])->orderBy('created_at','DESC')->first();
 
 
 
@@ -124,20 +133,20 @@ class InventoryProductionController extends Controller
         }else{
 
              Records::where('key',$checkExist->key)->update([
-                'total' =>$checkExist->beginning+$actualTarget,
+                'total' =>$beginning['total']+$checkExist->beginning+$actualTarget,
                 'baker_id' =>$request->baker_id,
-                'production' =>$actualTarget,
+                'production' =>$beginning['total']+$actualTarget,
                 'remark1' =>$request->remarks,
                 'baker' => $request->baker,
-                'charge' => ($target - $actualTarget) < 0?0:$target - $actualTarget,
-                'overs' => ($actualTarget - $target) < 0?0:$actualTarget - $target,
+                'charge' =>   ($target - $actualTarget) < 0?$beginning['charge']:($target - $actualTarget) + $beginning['charge'],
+                'overs' => ($actualTarget - $target) < 0? $beginning['overs']:$actualTarget - $target + $beginning['overs'],
                 'target' =>$target,
                 'kilo' =>$request->quantity
               ]);
               return response()->json([
-                  'status' =>$checkExist
+                  'status' => ($target - $actualTarget) + $beginning['charge']
               ]);
-
+              // ($target - $actualTarget) +
         }
       
 

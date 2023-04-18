@@ -177,7 +177,7 @@ useEffect(() => {
       ...getColumnSearchProps('charge'),
       sorter: (a, b) => a.charge.length - b.charge.length,
       sortDirections: ['descend', 'ascend'],
-       render: (_, { charge,charge_remarks,key,total,target }) => (
+       render: (_, { charge,charge_remarks,key,total,target,overs }) => (
        <Popover content={
       <table className="table">
           <tbody>
@@ -191,7 +191,7 @@ useEffect(() => {
             </tr>
             <tr>
               <td className="p-0" scope="row">Overdone: </td>
-              <td className="p-0"> <b> {(parseInt(total)-parseInt(target))}</b></td>
+              <td className="p-0"> <b> {(parseInt(overs))}</b></td>
             </tr>
             <tr>
               <td className="p-0" scope="row">Charge: </td>
@@ -205,7 +205,7 @@ useEffect(() => {
         </table>
         } title="Remark Charges">
             <Tag color='volcano' key={key}>
-             {charge}
+             {charge === null?'0':charge}
            </Tag>
       </Popover>
      ),
