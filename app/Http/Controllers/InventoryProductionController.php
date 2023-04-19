@@ -18,7 +18,7 @@ class InventoryProductionController extends Controller
   public function goto_bread_report(Request $request){
 
     $record = Records::where('key', $request->id)->first();
-    $record2 = Records::where([['branch_id','=',$request->branchid],['bread_id','=',$record->bread_id],['status','=','breads']])->first();
+    $record2 = Records::where([['date','=',$request->date],['remember_token','=','done'],['branch_id','=',$request->branchid],['bread_id','=',$record->bread_id],['status','=','breads']])->first();
     // $alltotal = $request->production;
     // $charge = $request->charge;
     $remaining = $request->production + $record->beginning;
@@ -45,15 +45,15 @@ class InventoryProductionController extends Controller
       ]);
     }else{
       
-      Records::where('key', $record2->key)->update([
-        'production' =>$record2->production + $request->production,
-        'charge' =>$record2->charge + $request->charge,
-        'overs' =>$record2->overs + $request->overs,
+      Records::where('key', $request->id)->update([
+        'production' =>$request->production,
+        'charge' =>$request->charge,
+        'overs' => $request->overs,
         'status' =>'breads',
         'assigned1' =>$request->assigned,
-        'total' =>$record2->total + $record->remaining+$remaining,
+        'total' =>$record->remaining+$remaining,
       ]);
-      Records::where('key', $request->id)->delete();
+    //  Records::where('key', $request->id)->delete();
     }
   
 
@@ -133,13 +133,13 @@ class InventoryProductionController extends Controller
         }else{
 
              Records::where('key',$checkExist->key)->update([
-                'total' =>$beginning['total']+$checkExist->beginning+$actualTarget,
+                'total' =>$checkExist->beginning+$actualTarget,
                 'baker_id' =>$request->baker_id,
-                'production' =>$beginning['total']+$actualTarget,
+                'production' =>$actualTarget,
                 'remark1' =>$request->remarks,
                 'baker' => $request->baker,
-                'charge' =>   ($target - $actualTarget) < 0?$beginning['charge']:($target - $actualTarget) + $beginning['charge'],
-                'overs' => ($actualTarget - $target) < 0? $beginning['overs']:$actualTarget - $target + $beginning['overs'],
+                'charge' =>   ($target - $actualTarget) < 0?0:($target - $actualTarget),
+                'overs' => ($actualTarget - $target) < 0?0:$actualTarget - $target,
                 'target' =>$target,
                 'kilo' =>$request->quantity
               ]);

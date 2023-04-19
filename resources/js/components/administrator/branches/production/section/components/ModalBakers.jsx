@@ -44,15 +44,7 @@ const ModalBakers = (props) => {
           setTimeout(myGreeting, 1500);
     }else{
        setLoading(true)
-        // axios.post('/goto_bread_report',{
-        //   charges:charge - (production-props.data[3]) <= 0?0:charge - (production-props.data[3]),
-        //   charge:production-props.data[3],
-        //   branchid:branchid,
-        //   production:production,
-        //   remarks:remarks,
-        //   id:key,
-        //   date:moment().format('MMMM DD, YYYY A')
-        // })
+     
          axios.post('/goto_bread_report',{
           charge:charge,
           branchid:branchid,
@@ -64,7 +56,6 @@ const ModalBakers = (props) => {
           date:moment().format('MMMM DD, YYYY A')
         })
         .then(res=>{
-      //    console.log('waa',res.data.status)
           setNotify('success')
           setLoading(false)
           setIsModalOpen(false);
