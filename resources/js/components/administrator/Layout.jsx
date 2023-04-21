@@ -5,9 +5,12 @@ import { LogoutOutlined } from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 import LogoutSession from "../auth/Logout";
+
+import { useParams } from 'react-router-dom';
 const AdminLayoutPage = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [logout, setLogout] = useState(false);
+    let { id } = useParams();
     const {
         token: { colorBgContainer },
     } = theme.useToken();
@@ -19,14 +22,15 @@ const AdminLayoutPage = () => {
         <Layout hasSider>
             {logout === true ? <LogoutSession show={logout} /> : false}
             <Sider
+            theme="light"
                 width="250px"
                 className="border border-right"
                 style={{
-                    height: "100vh",
+                    overflow: 'auto',
+                    height: '100vh',
                     left: 0,
                     top: 0,
                     bottom: 0,
-                    background: colorBgContainer,
                 }}
                 breakpoint="lg"
                 collapsedWidth="0"
@@ -42,17 +46,7 @@ const AdminLayoutPage = () => {
                 <img src="/images/logo.jpg" width="100%" />
 
                 <Menus />
-                <Button
-                    type="primary"
-                    danger
-                    onClick={LogoutUser}
-                    className="position-absolute bottom-0 end-0"
-                    icon={<LogoutOutlined />}
-                    block
-                    size="large"
-                >
-                    Logout
-                </Button>
+               
             </Sider>
             <Layout
                 style={{
@@ -68,7 +62,12 @@ const AdminLayoutPage = () => {
                 >
                     <div>
                         <b className="text-danger">GB</b> <b>BAKESHOP</b>
+                        
+                       <a  style={{float:'right',fontSize: '20px'}} onClick={LogoutUser}>
+                       <LogoutOutlined />
+                       </a>
                     </div>
+                    
                 </Header>
                 <Content
                     style={{
@@ -78,6 +77,7 @@ const AdminLayoutPage = () => {
                 >
                     <br />
                     <div className="container">
+                    <h3><b>{id === undefined?'ADMINISTRATOR':id.replace(/_/g,' ')}</b></h3>
                         <Outlet />
                     </div>
                 </Content>

@@ -105,7 +105,7 @@ function Auth() {
                                 </p>
                                 <div className="row mx-auto ">
                                     <div className="col-4">
-                                        <i className="fab fa-twitter"></i>
+                                        <i className="fab fas fa-qrcode text-white"></i>
                                     </div>
                                     <div className="col-4">
                                         <i className="fab fa-facebook"></i>
