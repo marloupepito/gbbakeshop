@@ -43,3 +43,5 @@ Route::get('/get_user_charges/{id}','App\Http\Controllers\ChargesController@get_
 
 Route::get('/get_user_credits/{id}','App\Http\Controllers\CreditsController@get_user_credits');
 Route::get('/get_record_dates/{id}','App\Http\Controllers\CreditsController@get_record_dates');
+
+Route::delete('/delete_bread/{id}','App\Http\Controllers\BranchBreadController@delete_bread');

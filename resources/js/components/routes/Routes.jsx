@@ -131,10 +131,10 @@ export const router = createBrowserRouter([
                         path: "/administrator/:id/production/records/:dates",
                         element: <ProductionRecords />,
                     },
-                    {
-                        path: "/administrator/:id/production/create/form",
-                        element: <ProductionSectionDrawer />,
-                    },
+                    // {
+                    //     path: "/administrator/:id/production/create/form",
+                    //     element: <ProductionSectionDrawer />,
+                    // },
                     {
                         path: "/administrator/:id/production/list",
                         element: <BreadListSection />,

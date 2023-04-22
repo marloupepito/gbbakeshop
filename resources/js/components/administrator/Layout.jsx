@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Layout, Menu, theme, Button } from "antd";
 import Menus from "./components/Menu";
-import { LogoutOutlined } from "@ant-design/icons";
+import {
+    LogoutOutlined,
+    MenuUnfoldOutlined,
+    MenuFoldOutlined,
+} from "@ant-design/icons";
 import { Outlet } from "react-router-dom";
 const { Header, Content, Footer, Sider } = Layout;
 import LogoutSession from "../auth/Logout";
 
-import { useParams } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 const AdminLayoutPage = () => {
     const [collapsed, setCollapsed] = useState(false);
     const [logout, setLogout] = useState(false);
@@ -22,18 +26,17 @@ const AdminLayoutPage = () => {
         <Layout hasSider>
             {logout === true ? <LogoutSession show={logout} /> : false}
             <Sider
-            theme="light"
+                theme="light"
                 width="250px"
                 className="border border-right"
                 style={{
-                    overflow: 'auto',
-                    height: '100vh',
+                    overflow: "auto",
+                    height: "100vh",
                     left: 0,
                     top: 0,
                     bottom: 0,
                 }}
-                breakpoint="lg"
-                collapsedWidth="0"
+                collapsed={collapsed}
                 onBreakpoint={(broken) => {
                     // console.log(broken);
                 }}
@@ -46,7 +49,6 @@ const AdminLayoutPage = () => {
                 <img src="/images/logo.jpg" width="100%" />
 
                 <Menus />
-               
             </Sider>
             <Layout
                 style={{
@@ -61,13 +63,31 @@ const AdminLayoutPage = () => {
                     className="border-bottom"
                 >
                     <div>
+                        <Button
+                            type="text"
+                            size="small"
+                            icon={
+                                collapsed ? (
+                                    <MenuUnfoldOutlined />
+                                ) : (
+                                    <MenuFoldOutlined />
+                                )
+                            }
+                            onClick={() => setCollapsed(!collapsed)}
+                            style={{
+                                fontSize: "16px",
+                                width: 64,
+                                height: 64,
+                            }}
+                        />
                         <b className="text-danger">GB</b> <b>BAKESHOP</b>
-                        
-                       <a  style={{float:'right',fontSize: '20px'}} onClick={LogoutUser}>
-                       <LogoutOutlined />
-                       </a>
+                        <a
+                            style={{ float: "right", fontSize: "20px" }}
+                            onClick={LogoutUser}
+                        >
+                            <LogoutOutlined />
+                        </a>
                     </div>
-                    
                 </Header>
                 <Content
                     style={{
@@ -77,7 +97,13 @@ const AdminLayoutPage = () => {
                 >
                     <br />
                     <div className="container">
-                    <h3><b>{id === undefined?'ADMINISTRATOR':id.replace(/_/g,' ')}</b></h3>
+                        <h3>
+                            <b>
+                                {id === undefined
+                                    ? "ADMINISTRATOR"
+                                    : id.replace(/_/g, " ")}
+                            </b>
+                        </h3>
                         <Outlet />
                     </div>
                 </Content>

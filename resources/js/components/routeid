@@ -1,0 +1,5 @@
+ 
+  
+import { useLocation } from 'react-router-dom'
+  const location = useLocation();
+ navigate(location.pathname+location.search+'#'+Math.random() * 10000);

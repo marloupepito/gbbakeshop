@@ -8,6 +8,61 @@ use App\Models\BranchBread;
 use Illuminate\Support\Facades\DB;
 class ProductionController extends Controller
 {
+
+     public function update_production_code(Request $request){
+          $codename = $request->code;
+          $branchid =$request->branchid;
+          $breadname =$request->data['breadname'];
+          $productionquantity =$request->data['productionquantity'];
+         
+     
+          $breadId= BranchBread::where([['branch_id','=',$branchid],['bread_name','=',strtoupper($breadname)]])->first();
+     
+          for ($i=0; $i < count($request->data['users']); $i++) { 
+               $ingredientsName = explode("|",$request->data['users'][$i]['ingredients_name'])[0];
+               $branching = BranchIngredients::where([['branch_id','=',$branchid],['ingredients_name','=',$ingredientsName]])->first();
+               if(isset($request->data['users'][$i]['id'])){
+                     Production::where('id',$request->data['users'][$i]['id'])->update([
+                         'branch_ingredients_id' =>$branching->id,
+                         'branch_bread_id' => $breadId->key,
+                         'code_name' => $codename,
+                         'bind' =>$request->data['users'][$i]['bind'],
+                         'bread_name' =>strtoupper($breadname),
+                         'ingredients_name' =>$ingredientsName,
+                         'production_quantity'=>$productionquantity,
+                         'quantity'=>$request->data['users'][$i]['quantity'],
+                    ]);
+               }else{
+                    Production::create(
+                         [
+                              'branch_id' => $branchid,
+                              'branch_ingredients_id' => $branching->id,
+                              'branch_bread_id' => $breadId->key,
+                              'random_id' =>$request->data['users'][0]['random_id'],
+                              'code_name' => $codename,
+                              'bind' =>$request->data['users'][$i]['bind'],
+                              'bread_name' =>strtoupper($breadname),
+                              'ingredients_name' =>explode("|",$request->data['users'][$i]['ingredients_name'])[0],
+                              'quantity'=>$request->data['users'][$i]['quantity'],
+                              'production_quantity'=>$productionquantity
+                         ]
+                    );
+               }
+              
+          }
+
+          return response()->json([
+               'status' =>'success',
+           ]);
+     }
+
+     public function get_production_code2(Request $request){
+          $data = Production::where('random_id','=',$request->randomid)->get();
+           return response()->json([
+              'status' => $data,
+          ]);
+     }
+     
     public function edit_branch_ingredients(Request $request){
         BranchIngredients::where('id','=',$request->id)
         ->update([

@@ -3,7 +3,7 @@ import { PlusOutlined } from '@ant-design/icons';
 import { Button, Col, DatePicker, Drawer, Form, Input, Row, Select, Space,InputNumber   } from 'antd';
 import { MinusCircleOutlined } from '@ant-design/icons';
 import { SearchBranchId } from '../../../../../routes/Search';
-import { useNavigate } from "react-router-dom";
+import { useNavigate,useLocation } from "react-router-dom";
 import { BranchNameParams } from '../../../../../routes/Params';
 import { get_branch_ingredients } from '../../../../api/Ingredients';
 import { AppNotification } from '../../../../../components/Notification';
@@ -12,7 +12,7 @@ import axios from 'axios';
 const { Option } = Select;
 const ProductionSectionDrawer = (props) => {
   const [form] = Form.useForm();
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const branchName =BranchNameParams().props.children
@@ -22,12 +22,13 @@ const ProductionSectionDrawer = (props) => {
   const [breadList,setBreadList] =useState([])
   const [bind,setBind] =useState(null)
   const [quantity,setQuantity] =useState(null)
+  const location = useLocation();
 
     const [a,setA] =useState([])
      const [b,setB] =useState([])
   const onClose = () => {
     setOpen(false)
-    navigate('/administrator/'+branchName+'/production/create?branch_id='+branchId);
+    navigate(location.pathname+location.search+'#'+Math.random() * 10000);
   };
 
 
@@ -95,13 +96,16 @@ const bindHandler = (e)=>{
 const quantityHandler = (e)=>{
   setQuantity(e.target.value)
 }
-
+const openForm =(e)=>{
+  setOpen(true)
+}
 
   return (
     <>
     {
       notify ==='success'?<AppNotification type="success" message="Product code has been genarated!"/>:notify ==='error'?<AppNotification type="error" message="Error!"/>:""
     }
+    <Button onClick={openForm} type="primary" size="large" block>PRODUCTION CODE</Button>
       <Drawer
         title="Create Code Bread"
         width={'100%'}

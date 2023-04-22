@@ -11,8 +11,34 @@ use App\Models\Records;
 use App\Models\Production;
 class BranchBreadController extends Controller
 {
-
     
+    public function delete_bread($id){
+        BranchBread::where('key',$id)->delete();
+         return response()->json([
+             'status' => 'success'
+         ]);
+    }
+    public function add_branch_bread(Request $request){
+
+        BranchBread::create([
+           'branch_id' =>$request->data['branch_id'],
+           'bread_name' =>$request->data['bread_name'],
+           'price' =>$request->data['price']
+        ]);
+        return response()->json([
+            'status' => $request->data
+        ]);
+    }
+    public function edit_branch_bread_list(Request $request){
+       BranchBread::where('key',$request->data['key'])->update([
+        'bread_name' =>$request->data['bread_name'],
+        'quantity' =>$request->data['quantity'],
+        'price' =>$request->data['price']
+       ]);
+        return response()->json([
+            'status' => 'success'
+        ]);
+    }
 
     public function delete_production_code(Request $request){
         Production::where('random_id','=',$request->id)->delete();
@@ -28,7 +54,7 @@ class BranchBreadController extends Controller
     }
     public function get_bread_every_branch2(Request $request){
 
-        $ingredients = BranchBread::where('branch_id', $request->branchid)->get();
+        $ingredients = BranchBread::where('branch_id', $request->branchid)->orderBy('key', 'desc')->get();
         return response()->json([
             'status' => $ingredients
         ]);

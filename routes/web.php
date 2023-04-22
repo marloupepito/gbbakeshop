@@ -71,6 +71,8 @@ Route::post('/get_all_production','App\Http\Controllers\ProductionController@get
 Route::post('/add_branch_ingredients','App\Http\Controllers\ProductionController@add_branch_ingredients');
 Route::post('/edit_branch_ingredients','App\Http\Controllers\ProductionController@edit_branch_ingredients');
 Route::post('/get_production_code','App\Http\Controllers\ProductionController@get_production_code');
+Route::post('/get_production_code2','App\Http\Controllers\ProductionController@get_production_code2');
+Route::patch('/update_production_code','App\Http\Controllers\ProductionController@update_production_code');
 
 Route::post('/add_bread_list','App\Http\Controllers\InventoryProductionController@add_bread_list');
 Route::post('/get_branch_bread_sold','App\Http\Controllers\InventoryProductionController@get_branch_bread_sold');
@@ -89,11 +91,11 @@ Route::post('/delete_branch_ingredients','App\Http\Controllers\BranchIngredients
 
 Route::post('/get_bread_every_branch','App\Http\Controllers\BranchBreadController@get_bread_every_branch');
 Route::post('/get_bread_every_branch2','App\Http\Controllers\BranchBreadController@get_bread_every_branch2');
-
-
 Route::post('/add_bread_branch_sold','App\Http\Controllers\BranchBreadController@add_bread_branch_sold');
 Route::post('/add_bread_branch_out','App\Http\Controllers\BranchBreadController@add_bread_branch_out');
 Route::post('/delete_production_code','App\Http\Controllers\BranchBreadController@delete_production_code');
+Route::patch('/edit_branch_bread_list','App\Http\Controllers\BranchBreadController@edit_branch_bread_list');
+Route::post('/add_branch_bread','App\Http\Controllers\BranchBreadController@add_branch_bread');
 
 
 

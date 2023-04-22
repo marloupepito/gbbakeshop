@@ -84,7 +84,7 @@ const branchName = BranchNameParams().props.children.replace(/_/g,' ')
      {
       notify ==='success'?<AppNotification type="success" message="Successfully requested!"/>:notify ==='error'?<AppNotification type="error" message="Error!"/>:""
     }
-      <Button type="primary" className="mb-3" onClick={showModal}>
+      <Button type="primary"  size="large"  className="mb-3" onClick={showModal}>
         Create Request Ingredients
       </Button>
       <Modal maskClosable={false} title="Request Ingredients" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
