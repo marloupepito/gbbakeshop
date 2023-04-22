@@ -26,11 +26,12 @@ class UsersController extends Controller
     }
 public function update_account(Request $request){
      $exist= User::where([['username','=',$request->data['username']],['id','<>',$request->id]])->get();
-
+    $branch =Branches::where('branch_name','=',$request->data['branch'])->first();
      if(count($exist) === 0){
         if($request->data['password'] === null){
             User::where('id','=',$request->id)->update([
                 'name'=>$request->data['name'],
+                'branch_id'=>$branch->id,
                 'shift'=>$request->data['shift'],
                 'username'=>$request->data['username'],
                 'mobile'=>$request->data['mobile'],

@@ -60,7 +60,7 @@ function Auth() {
                     localStorage.setItem("branchid", res.data.user.branch_id);
                     localStorage.setItem("id", res.data.branch.id);
                     setLoading(false);
-                    console.log(res.data.branch.branch_name)
+                    console.log(res.data.branch.branch_name);
                 } else if (
                     res.data.status === "success" &&
                     res.data.user.position === "admin"
@@ -96,42 +96,23 @@ function Auth() {
             }}
         >
             <Skeleton loading={loading2}>
-                <div className="container">
-                    <div className="row d-flex justify-content-center mt-5">
-                        <div className="col-12 col-md-8 col-lg-6 col-xl-5">
-                            <div className="card py-3 px-2">
-                                <p className="text-center mb-3 mt-2">
-                                    <h3><b>GB BAKESHOP</b></h3>
-                                </p>
-                                <div className="row mx-auto ">
-                                    <div className="col-4">
-                                        <i className="fab fas fa-qrcode text-white"></i>
-                                    </div>
-                                    <div className="col-4">
-                                        <i className="fab fa-facebook"></i>
-                                    </div>
-                                    <div className="col-4">
-                                        <i className="fab fa-google"></i>
-                                    </div>
-                                </div>
-                                <div className="division mb-5">
-                                    <div className="row">
-                                        <div className="col-3">
-                                            <div className="line l"></div>
-                                        </div>
-                                        <div className="col-3">
-                                            <div className="line r"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="myform">
-                                    <Form
+                <div class="loginBox">
+                    
+                    <img
+                        class="user"
+                        src="https://i.ibb.co/yVGxFPR/2.png"
+                        height="100px"
+                        width="100px"
+                    />
+                    <h3 class="text-danger"><b>Sign in here</b></h3>
+                    <Form
                                         name="basic"
                                         initialValues={{ remember: true }}
                                         onFinish={onFinish}
                                         onFinishFailed={onFinishFailed}
                                         autoComplete="off"
                                         layout="vertical"
+                                        className="text-white"
                                     >
                                         <p className="text-danger">
                                             {error !== null ? error : ""}
@@ -160,17 +141,8 @@ function Auth() {
                                                 },
                                             ]}
                                         >
-                                            <Input.Password />
+                                            <Input type="password" />
                                         </Form.Item>
-                                        <br /> <br />
-                                        <div className="row">
-                                            <div className="col-md-6 col-12">
-                                                {/* <div className="form-group form-check">
-    							<input type="checkbox" className="form-check-input" id="exampleCheck1" />
-    							<label className="form-check-label" for="exampleCheck1">Rester connecte</label>
-  							</div> */}
-                                            </div>
-                                        </div>
                                         <div className="form-group mt-3">
                                             <Form.Item>
                                                 <Button
@@ -184,11 +156,14 @@ function Auth() {
                                                 </Button>
                                             </Form.Item>
                                         </div>
-                                    </Form><br />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                                    </Form>
+                    {/* <a href="#">
+                        Forget Password
+                        <br />
+                    </a>
+                    <div class="text-center">
+                        <p style={{color: '#59238F'}}>Sign-Up</p>
+                    </div> */}
                 </div>
             </Skeleton>
         </div>
